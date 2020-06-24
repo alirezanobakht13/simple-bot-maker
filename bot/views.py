@@ -1,7 +1,8 @@
-from django.shortcuts import render,HttpResponseRedirect,Http404
+from django.shortcuts import render,HttpResponseRedirect,Http404,HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import BotTokens,Commands
 from .forms import AddBot,AddCommand
+import telegram
 # Create your views here.
 
 
@@ -18,7 +19,13 @@ def add_bot(request):
     if form.is_valid():
         bot = BotTokens()
         bot.tele_token = form.cleaned_data.get('tele')
-        bot.bale_toket = form.cleaned_data.get('bale')
+        bot.bale_token = form.cleaned_data.get('bale')
+        try:
+            tele = telegram.Bot(token=bot.tele_token)
+            tele.setWebhook('https://42a38a4d9663.ngrok.io'+'/webhook/telegram/'+str(bot.tele_token))
+        except:
+            return HttpResponse("<h1>something wrong (probably token is wrong)</h1>")
+       
         bot.bot_name = form.cleaned_data.get('name')
         bot.user = user
         bot.save()

@@ -9,7 +9,7 @@ User = get_user_model()
 class BotTokens(models.Model):
     bot_name = models.CharField(max_length=255)
     tele_token = models.CharField(max_length=255)
-    bale_toket = models.CharField(max_length=255)
+    bale_token = models.CharField(max_length=255)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     
     def __str__(self):
