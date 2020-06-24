@@ -1,3 +1,4 @@
-secret.py
-db.sqlite3
-.vscode/
+/.git
+/.vscode
+/db.sqlite3
+/secret.py
